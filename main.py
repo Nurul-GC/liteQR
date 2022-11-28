@@ -39,7 +39,7 @@ class LQR:
         self.janela_principal.setFixedSize(QSize(500, 500))
         self.janela_principal.setWindowIcon(QIcon("./favicon/favicon.ico"))
 
-        bg_image = QImage(f"./img/bg.jpg")
+        bg_image = QImage(f"./favicon/bg.jpg")
         set_bg_image = bg_image.scaled(QSize(600, 500))  # resize Image to widget's size
         palette = QPalette()
         palette.setBrush(palette.ColorGroup.All, palette.ColorRole.Window, QBrush(set_bg_image))
