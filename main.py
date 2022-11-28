@@ -4,7 +4,7 @@ from time import sleep
 from webbrowser import open_new
 
 from PyQt6.QtCore import Qt, QSize
-from PyQt6.QtGui import QFontDatabase, QImage, QPalette, QBrush, QPixmap, QIcon, QPicture
+from PyQt6.QtGui import QFontDatabase, QImage, QPalette, QBrush, QPixmap, QIcon
 from PyQt6.QtWidgets import *
 from pyqrcode import create
 
@@ -132,4 +132,3 @@ if __name__ == '__main__':
     app = LQR()
     initwindow()
     app.gcapp.exec()
-
