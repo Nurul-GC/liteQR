@@ -1,11 +1,30 @@
 from random import randint
 from sys import argv
+from time import sleep
 from webbrowser import open_new
 
 from PyQt6.QtCore import Qt, QSize
-from PyQt6.QtGui import QFontDatabase, QImage, QPalette, QBrush
+from PyQt6.QtGui import QFontDatabase, QImage, QPalette, QBrush, QPixmap, QIcon, QPicture
 from PyQt6.QtWidgets import *
 from pyqrcode import create
+
+
+def initwindow():
+    def iniciar():
+        load = 0
+        while load < 100:
+            janela.showMessage(f"Carregando Modulos: {load}%", align, Qt.GlobalColor.white)
+            sleep(0.5)
+            load += randint(5, 10)
+        janela.close()
+        app.janela_principal.show()
+
+    img = QPixmap("./favicon/favicon-512x512.png")
+    align = int(Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignAbsolute)
+    janela = QSplashScreen(img)
+    janela.setStyleSheet(theme)
+    janela.show()
+    iniciar()
 
 
 class LQR:
@@ -18,6 +37,7 @@ class LQR:
         self.janela_principal.setWindowTitle("GC-liteQR")
         self.janela_principal.setStyleSheet(theme)
         self.janela_principal.setFixedSize(QSize(500, 500))
+        self.janela_principal.setWindowIcon(QIcon("./favicon/favicon.ico"))
 
         bg_image = QImage(f"./img/bg.jpg")
         set_bg_image = bg_image.scaled(QSize(600, 500))  # resize Image to widget's size
@@ -34,9 +54,8 @@ class LQR:
         sobre = menu.addAction("Sobre")
         sobre.triggered.connect(self._sobre)
 
-        self.mainwindow()
         self.janela_principal.setMenuBar(menu)
-        self.janela_principal.show()
+        self.mainwindow()
 
     def _sobre(self):
         QMessageBox.information(self.janela_principal, "Sobre",
@@ -57,11 +76,27 @@ class LQR:
             else:
                 filename = QFileDialog.getSaveFileName(caption="Selecione aonde salvar e o nome do arquivo")[0]
                 fileqr = create(content=datainput.toPlainText())
-                fileqr.png(file=f"{filename}.png",
+                fileqr.png(file=f"{filename}.png", scale=10,
                            module_color=(randint(0, 255), randint(0, 255), randint(0, 255), randint(0, 255)),
                            background=(randint(0, 255), randint(0, 255), randint(0, 255), randint(0, 255)))
-                QMessageBox.information(self.janela_principal, "Arquivo Salvo",
-                                        f"<h1>O arquivo foi salvo com sucesso na localização</h1><hr>- {filename}")
+                perg = QMessageBox.question(self.janela_principal, "Arquivo Salvo",
+                                            f"<h1>O arquivo foi salvo com sucesso na localização abaixo, "
+                                            f"deseja visualizar o codigo?</h1><hr>- {filename}.png")
+                if perg.Yes:
+                    view = QDialog()
+                    viewlayout = QVBoxLayout()
+
+                    imglabel = QLabel()
+                    imglabel.setPixmap(QPixmap(f"{filename}.png"))
+                    viewlayout.addWidget(imglabel)
+
+                    fechar = lambda: view.close()
+                    fecharbtn = QPushButton("Fechar")
+                    fecharbtn.clicked.connect(fechar)
+                    viewlayout.addWidget(fecharbtn)
+
+                    view.setLayout(viewlayout)
+                    view.show()
 
         ferramentas = QWidget()
         layout = QFormLayout()
@@ -92,4 +127,6 @@ class LQR:
 if __name__ == '__main__':
     theme = open("./theme/liteqr.qss").read().strip()
     app = LQR()
+    initwindow()
     app.gcapp.exec()
+
