@@ -13,7 +13,7 @@ to easily create QR codes with three simple steps:
 3. Giving a name to the file and confirming the action;
 
 The program saves the file as PNG file and also customizes it
-with different colors (automatically) every time time you try to create a new one.
+with different colors (automatically) each time you try to create a new one.
 
 ## Demos
 
