@@ -18,10 +18,10 @@ with different colors (automatically) every time time you try to create a new on
 ## Demos
 
 `main-page`
-![main-demo](./img/maindemo.png)
+![main-demo](assets/maindemo.png)
 
 `QR example`
-![test-qr](img/testqr.png)
+![test-qr](assets/testqr.png)
 
 ---
 
