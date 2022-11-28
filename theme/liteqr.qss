@@ -1,0 +1,35 @@
+QWidget{
+    font-family: "Abel";
+    font-size: 13pt;
+    color: "white";
+}
+QMenuBar{
+    color: "gray";
+}
+QMenu{
+    color: "gray";
+}
+QMessageBox{
+    background-color: "black";
+    color: "white";
+}
+QPushButton{
+    padding: 5px;
+    border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: "white";
+    color: "white";
+}
+QPushButton::hover{
+    background-color: "gray";
+    color: "black";
+}
+QTextEdit{
+    padding: 2px;
+    border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: "white";
+    color: "gray";
+}
