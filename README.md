@@ -17,10 +17,10 @@ with different colors (automatically) each time you try to create a new one.
 
 ## Demos
 
-`main-page`
+`main-page` \
 ![main-demo](./assets/maindemo.png)
 
-`QR example`
+`QR example` \
 ![test-qr](./assets/testqr.png)
 
 ---
