@@ -46,52 +46,54 @@ class LQR:
         self.janela_principal.setPalette(palette)
 
         menu = QMenuBar()
-        detalhes = menu.addMenu("Detalhes")
-        detalhes.addAction("Intruções")
+        detalhes = menu.addMenu("Details")
+        detalhes.addAction("Intructions")
         detalhes.addSeparator()
-        sair = detalhes.addAction("Sair")
+        sair = detalhes.addAction("Quit")
         sair.triggered.connect(self._sair)
-        sobre = menu.addAction("Sobre")
+        sobre = menu.addAction("About")
         sobre.triggered.connect(self._sobre)
 
         self.janela_principal.setMenuBar(menu)
         self.mainwindow()
 
     def _sobre(self):
-        QMessageBox.information(self.janela_principal, "Sobre",
-                                "<h1>Informações do Programa</h1><hr>"
+        QMessageBox.information(self.janela_principal, "About",
+                                "<h1>Info about the program</h1><hr>"
                                 "<p>...</p>")
 
     def _sair(self):
-        perg = QMessageBox.question(self.janela_principal, "Sair",
-                                    "Tem a certeza que deseja terminar o programa?")
+        perg = QMessageBox.question(self.janela_principal, "Quit",
+                                    "Are you sure you want to end the program?")
         if perg.Yes:
             exit(0)
 
     def mainwindow(self):
         def guardar():
             if datainput.toPlainText().isspace() or datainput.toPlainText() == "":
-                QMessageBox.warning(self.janela_principal, "Erro",
-                                    "<h1>Por favor preencha o campo de conteudo antes de salvar o arquivo!</h1>")
+                QMessageBox.warning(self.janela_principal, "Warning",
+                                    "<h1>Please fill in the content field before saving the file!</h1>")
             else:
-                filename = QFileDialog.getSaveFileName(caption="Selecione aonde salvar e o nome do arquivo")[0]
+                filename = QFileDialog.getSaveFileName(caption="Choose where to save and the file's name")[0]
                 fileqr = create(content=datainput.toPlainText())
                 fileqr.png(file=f"{filename}.png", scale=10,
                            module_color=(randint(0, 255), randint(0, 255), randint(0, 255), randint(0, 255)),
                            background=(randint(0, 255), randint(0, 255), randint(0, 255), randint(0, 255)))
-                perg = QMessageBox.question(self.janela_principal, "Arquivo Salvo",
-                                            f"<h1>O arquivo foi salvo com sucesso na localização abaixo, "
-                                            f"deseja visualizar o codigo?</h1><hr>- {filename}.png")
+                datainput.clear()
+                perg = QMessageBox.question(self.janela_principal, "Successfuly Saved",
+                                            f"<h1>The file has been succesfully saved to the location bellow, "
+                                            f"would you like to preview it?</h1><hr>- {filename}.png")
                 if perg.Yes:
                     view = QDialog()
                     viewlayout = QVBoxLayout()
 
                     imglabel = QLabel()
                     imglabel.setPixmap(QPixmap(f"{filename}.png"))
+                    imglabel.setToolTip("Unfortunatelly you can't scan the code from here due to graphical issues!")
                     viewlayout.addWidget(imglabel)
 
                     fechar = lambda: view.close()
-                    fecharbtn = QPushButton("Fechar")
+                    fecharbtn = QPushButton("Close")
                     fecharbtn.clicked.connect(fechar)
                     viewlayout.addWidget(fecharbtn)
 
@@ -101,20 +103,21 @@ class LQR:
         ferramentas = QWidget()
         layout = QFormLayout()
 
-        textlabel = QLabel("<h1>GC-liteQR</h1><small>Simples criador de codigos QR</small><hr>")
+        textlabel = QLabel("<h1>GC-liteQR</h1><hr><small>Simple QR code generator</small>")
         textlabel.setAlignment(Qt.AlignmentFlag.AlignRight)
         layout.addRow(textlabel)
 
         datainput = QTextEdit()
-        layout.addRow("Digite aqui\no conteudo:", datainput)
+        datainput.setPlaceholderText("Type here the content..")
+        layout.addRow(datainput)
 
-        savebtn = QPushButton("Guardar")
+        savebtn = QPushButton("Save")
         savebtn.clicked.connect(guardar)
-        layout.addWidget(savebtn)
+        layout.addRow(savebtn)
 
         # copyright-label
         browser = lambda p: open_new('https://artesgc.home.blog')
-        website = QLabel("<a href='#' style='text-decoration:none; color:white;'>™ ArtesGC, Inc.</a>")
+        website = QLabel("<a href='#' style='text-decoration:none; color:green;'>™ ArtesGC, Inc.</a>")
         website.setAlignment(Qt.AlignmentFlag.AlignRight)
         website.setToolTip('Access to the official website of ArtesGC!')
         website.linkActivated.connect(browser)
