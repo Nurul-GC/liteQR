@@ -6,7 +6,7 @@
 
 GC-liteQR is a simple and practical QR codes generator
 it was built with `PyQt6 + QSS + PyQRCode` frameworks allowing the user
-to easily create QR codes with three simple steps:
+to easily create QR codes on his PC (offline) with three simple steps:
 
 1. Type de content on the text box;
 2. Create the file clicking the button;
