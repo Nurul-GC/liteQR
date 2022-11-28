@@ -37,7 +37,7 @@ class LQR:
         self.janela_principal.setWindowTitle("GC-liteQR")
         self.janela_principal.setStyleSheet(theme)
         self.janela_principal.setFixedSize(QSize(500, 500))
-        self.janela_principal.setWindowIcon(QIcon("./favicon/favicon.ico"))
+        self.janela_principal.setWindowIcon(QIcon("./favicon/favicon-256x256.ico"))
 
         bg_image = QImage(f"./favicon/bg.jpg")
         set_bg_image = bg_image.scaled(QSize(600, 500))  # resize Image to widget's size
