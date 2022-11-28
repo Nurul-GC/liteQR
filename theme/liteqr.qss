@@ -4,9 +4,15 @@ QWidget{
     color: "white";
 }
 QMenuBar{
+    color: "black";
+}
+QMenuBar::selected{
     color: "gray";
 }
 QMenu{
+    color: "black";
+}
+QMenu::selected{
     color: "gray";
 }
 QMessageBox{
@@ -26,7 +32,7 @@ QPushButton::hover{
     color: "black";
 }
 QTextEdit{
-    padding: 2px;
+    padding: 10px;
     border-radius: 5px;
     border-width: 1px;
     border-style: solid;
