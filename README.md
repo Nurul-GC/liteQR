@@ -1,6 +1,6 @@
 <div align="center">
 
-# ![liteqr-logo](./favicon/favicon-192x192.png) \
+# ![liteqr-logo](./favicon/favicon-192x192.png) 
 [![Download GC-liteQR](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/liteqr/files/latest/download) \
 [![Download GC-liteQR](https://img.shields.io/sourceforge/dt/liteqr.svg)](https://sourceforge.net/projects/liteqr/files/latest/download)
 
