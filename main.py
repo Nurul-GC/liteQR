@@ -36,7 +36,7 @@ class LQR:
         self.janela_principal = QMainWindow()
         self.janela_principal.setWindowTitle("GC-liteQR")
         self.janela_principal.setStyleSheet(theme)
-        self.janela_principal.setFixedSize(QSize(500, 500))
+        self.janela_principal.setFixedSize(QSize(600, 500))
         self.janela_principal.setWindowIcon(QIcon("./favicon/favicon-256x256.ico"))
 
         bg_image = QImage(f"./favicon/bg.jpg")
@@ -50,7 +50,7 @@ class LQR:
         instr = detalhes.addAction("Intructions")
         instr.triggered.connect(self._instr)
         detalhes.addSeparator()
-        _sair = lambda: exit(0)
+        _sair = lambda: self.gcapp.exit(0)
         sair = detalhes.addAction("Quit")
         sair.triggered.connect(_sair)
         sobre = menu.addAction("About")
