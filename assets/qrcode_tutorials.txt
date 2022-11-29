@@ -1,0 +1,18 @@
+tutorials found at:
+
+* http://www.thonky.com/qr-code-tutorial/
+
+* http://www.matchadesign.com/blog/qr-code-demystified-part-6/
+
+This class also uses the standard, which can be read online at:
+http://raidenii.net/files/datasheets/misc/qr_code.pdf
+
+Test codes were tested against:
+http://zxing.org/w/decode.jspx
+
+Also, reference codes were generat/ed at:
+http://www.morovia.com/free-online-barcode-generator/qrcode-maker.php
+http://demos.telerik.com/aspnet-ajax/barcode/examples/qrcode/defaultcs.aspx
+
+QR code Debugger:
+http://qrlogo.kaarposoft.dk/qrdecode.html
