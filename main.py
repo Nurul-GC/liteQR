@@ -1,5 +1,5 @@
 from random import randint
-from sys import argv
+from sys import argv, exit
 from time import sleep
 from webbrowser import open_new
 
@@ -13,9 +13,9 @@ def initwindow():
     def iniciar():
         load = 0
         while load < 100:
-            janela.showMessage(f"Carregando Modulos: {load}%", align, Qt.GlobalColor.white)
+            janela.showMessage(f"Loading Modules: {load}%", align, Qt.GlobalColor.white)
             sleep(0.5)
-            load += randint(5, 10)
+            load += randint(2, 10)
         janela.close()
         app.janela_principal.show()
 
@@ -47,10 +47,12 @@ class LQR:
 
         menu = QMenuBar()
         detalhes = menu.addMenu("Details")
-        detalhes.addAction("Intructions")
+        instr = detalhes.addAction("Intructions")
+        instr.triggered.connect(self._instr)
         detalhes.addSeparator()
+        _sair = lambda: exit(0)
         sair = detalhes.addAction("Quit")
-        sair.triggered.connect(self._sair)
+        sair.triggered.connect(_sair)
         sobre = menu.addAction("About")
         sobre.triggered.connect(self._sobre)
 
@@ -59,20 +61,31 @@ class LQR:
 
     def _sobre(self):
         QMessageBox.information(self.janela_principal, "About",
-                                "<h1>Info about the program</h1><hr>"
-                                "<p>...</p>")
+                                "<b>Info about the program</b><hr>"
+                                "<p><ul><li><b>Name:</b> GC-liteQR</li>"
+                                "<li><b>Version:</b> 0.1-112022</li>"
+                                "<li><b>Maintener:</b> &copy;Nurul-GC</li>"
+                                "<li><b>Publisher:</b> &trade;ArtesGC, Inc.</li></ul></p>")
 
-    def _sair(self):
-        perg = QMessageBox.question(self.janela_principal, "Quit",
-                                    "Are you sure you want to end the program?")
-        if perg.Yes:
-            exit(0)
+    def _instr(self):
+        QMessageBox.information(self.janela_principal, "Instructions",
+                                "<b>Brief Presentation</b><hr>"
+                                "<p>GC-liteQR is a simple and practical QR codes generator"
+                                "it was built with `PyQt6 + QSS + PyQRCode` frameworks allowing the user"
+                                "to easily create QR codes on his PC (offline) with three simple steps:</p>"
+                                "<p>1. Type de content on the text box;<br>"
+                                "2. Create the file clicking the button;<br>"
+                                "3. Giving a name to the file and confirming the action;</p>"
+                                "<p>The program saves the file as a PNG image and also customizes it"
+                                "with different colors (automatically) each time you try to create a new one.</p>"
+                                "<p>Thanks for your support!<br>"
+                                "<b>&trade;ArtesGC, Inc.</b></p>")
 
     def mainwindow(self):
         def guardar():
             if datainput.toPlainText().isspace() or datainput.toPlainText() == "":
                 QMessageBox.warning(self.janela_principal, "Warning",
-                                    "<h1>Please fill in the content field before saving the file!</h1>")
+                                    "<b>Please fill in the content field before saving the file!</b>")
             else:
                 filename = QFileDialog.getSaveFileName(caption="Choose where to save and the file's name")[0]
                 fileqr = create(content=datainput.toPlainText())
@@ -81,15 +94,16 @@ class LQR:
                            background=(randint(0, 255), randint(0, 255), randint(0, 255), randint(0, 255)))
                 datainput.clear()
                 perg = QMessageBox.question(self.janela_principal, "Successfuly Saved",
-                                            f"<h1>The file has been succesfully saved to the location bellow, "
-                                            f"would you like to preview it?</h1><hr>- {filename}.png")
+                                            f"<b>The file has been succesfully saved to the location bellow, "
+                                            f"would you like to preview it?</b><hr>- {filename}.png")
                 if perg.Yes:
                     view = QDialog()
                     viewlayout = QVBoxLayout()
 
                     imglabel = QLabel()
                     imglabel.setPixmap(QPixmap(f"{filename}.png"))
-                    imglabel.setToolTip("Unfortunatelly you can't scan the code from here due to graphical issues!")
+                    imglabel.setToolTip("Unfortunatelly you maybe unable to scan the code from here "
+                                        "due to graphical issues!")
                     viewlayout.addWidget(imglabel)
 
                     fechar = lambda: view.close()
