@@ -30,7 +30,7 @@ with different colors (automatically) each time you try to create a new one.
 <div align="center">
 
 &copy; 2022 Nurul-GC |
-[Free License](./LICENSE-EN) |
+[3-Clause BSD License](./LICENSE) |
 &trade; ArtesGC, Inc. 
 
 </div>
